@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { OrbitControls } from '@tresjs/cientos';
-import { Pane } from 'tweakpane';
 import { reactive, watchEffect } from 'vue';
 import { useModelBridge } from '~/composables/model-bridge';
 
@@ -15,11 +14,6 @@ const state = reactive({
   objPositionZ: 0,
   wireframe: false,
 });
-
-const pane = new Pane();
-pane.addBinding(state, 'objPositionX', { min: -10, max: 10 });
-pane.addBinding(state, 'objPositionY', { min: -10, max: 10 });
-pane.addBinding(state, 'objPositionZ', { min: -10, max: 10 });
 
 watchEffect(() => {
   fbxObject.position.x = state.objPositionX;

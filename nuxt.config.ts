@@ -6,8 +6,12 @@ export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
   vite: {
     assetsInclude: ['**/*.fbx'],
-  },
-  experimental: {
-    payloadExtraction: false,
+    css: {
+      preprocessorOptions: {
+        scss: {
+          api: 'modern-compiler',
+        },
+      },
+    },
   },
 });
