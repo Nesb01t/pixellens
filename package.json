@@ -1,0 +1,31 @@
+{
+  "name": "nuxt-app",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "@tresjs/cientos": "^4.0.3",
+    "@tresjs/nuxt": "^3.0.7",
+    "nuxt": "^3.13.2",
+    "three": "^0.169.0",
+    "tweakpane": "^4.0.4",
+    "vue": "latest",
+    "vue-router": "latest"
+  },
+  "packageManager": "pnpm@9.12.2+sha512.22721b3a11f81661ae1ec68ce1a7b879425a1ca5b991c975b074ac220b187ce56c708fe5db69f4c962c989452eee76c82877f4ee80f474cebd61ee13461b6228",
+  "devDependencies": {
+    "@nuxt/eslint": "^0.6.0",
+    "@nuxtjs/tailwindcss": "^6.12.2",
+    "@tweakpane/core": "^2.0.4",
+    "eslint": "^9.13.0",
+    "prettier": "^3.3.3",
+    "sass": "^1.80.4",
+    "typescript": "^5.6.3"
+  }
+}
