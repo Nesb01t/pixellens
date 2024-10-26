@@ -2,7 +2,7 @@
 
 <template>
   <div class="main-world">
-    <ShowCase />
+    <Showcase />
   </div>
 </template>
 
