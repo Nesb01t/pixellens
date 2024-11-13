@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { OrbitControls } from '@tresjs/cientos';
+import { useEventListener } from '@vueuse/core';
 import { reactive, watchEffect } from 'vue';
 import { useModelBridge } from '~/composables/model-bridge';
 
@@ -20,10 +21,12 @@ watchEffect(() => {
   fbxObject.position.y = state.objPositionY;
   fbxObject.position.z = state.objPositionZ;
 });
+
+useEventListener('resize', () => {});
 </script>
 
 <template>
-  <TresCanvas clear-color="#82dbc5">
+  <TresCanvas clear-color="#82dbc5" preset="realistic">
     <primitive :object="fbxObject" />
     <TresPerspectiveCamera :position="[9, 9, 9]" />
     <OrbitControls />

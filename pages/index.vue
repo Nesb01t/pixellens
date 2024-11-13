@@ -1,9 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <span>
-    <Showcase />
-  </span>
+  <Showcase />
 </template>
 
 <style lang="scss" scoped></style>
