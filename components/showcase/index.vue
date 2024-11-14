@@ -26,7 +26,7 @@ useEventListener('resize', () => {});
 </script>
 
 <template>
-  <TresCanvas clear-color="#82dbc5" preset="realistic">
+  <TresCanvas clear-color="#eaeaea" preset="realistic">
     <primitive :object="fbxObject" />
     <TresPerspectiveCamera :position="[9, 9, 9]" />
     <OrbitControls />
