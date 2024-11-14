@@ -10,3 +10,4 @@
 ## Todo
 
 - [ ] 可交互的结构层级, 例如隐藏 / 只显示某 y 层方块
+- [ ] Seek 某个类型的方块 + Bloom [tresjs useseek](https://docs.tresjs.org/zh/api/composables.html#useseek)

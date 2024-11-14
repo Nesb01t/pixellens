@@ -5,7 +5,7 @@ export default defineNuxtConfig({
   devtools: { enabled: false },
   compatibilityDate: '2024-04-03',
   vite: {
-    assetsInclude: ['**/*.fbx'],
+    assetsInclude: ['**/*.fbx', '**/*.glb'],
     css: {
       preprocessorOptions: {
         scss: {

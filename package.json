@@ -13,18 +13,18 @@
     "@tresjs/cientos": "^4.0.3",
     "@tresjs/nuxt": "^3.0.7",
     "@vueuse/core": "^11.2.0",
-    "nuxt": "^3.13.2",
-    "vue": "latest",
-    "vue-router": "latest"
+    "nuxt": "^3.14.159",
+    "vue": "^3.5.12",
+    "vue-router": "^4.4.5"
   },
   "packageManager": "pnpm@9.12.2+sha512.22721b3a11f81661ae1ec68ce1a7b879425a1ca5b991c975b074ac220b187ce56c708fe5db69f4c962c989452eee76c82877f4ee80f474cebd61ee13461b6228",
   "devDependencies": {
-    "@nuxt/eslint": "^0.6.0",
+    "@nuxt/eslint": "^0.6.1",
     "@nuxtjs/tailwindcss": "^6.12.2",
-    "@types/three": "^0.169.0",
-    "eslint": "^9.13.0",
+    "@types/three": "^0.170.0",
+    "eslint": "^9.14.0",
     "prettier": "^3.3.3",
-    "sass": "^1.80.4",
+    "sass": "^1.80.7",
     "typescript": "^5.6.3"
   }
 }
