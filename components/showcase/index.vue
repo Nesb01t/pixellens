@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Box, OrbitControls } from '@tresjs/cientos';
+import { OrbitControls } from '@tresjs/cientos';
 import { useEventListener } from '@vueuse/core';
 import { reactive, watchEffect } from 'vue';
 import { useModelBridge } from '~/composables/model-bridge';
@@ -7,7 +7,7 @@ import { useModelBridge } from '~/composables/model-bridge';
 const modelBridge = useModelBridge();
 const obj = await modelBridge.getGltfExample();
 
-obj.scale.set(0.2, 0.2, 0.2);
+obj.scale.set(0.18, 0.18, 0.18);
 
 const state = reactive({
   objPositionX: 0,
@@ -26,14 +26,11 @@ useEventListener('resize', () => {});
 </script>
 
 <template>
-  <TresCanvas clear-color="#AAAAAA" shadows preset="realistic">
-    <TresPerspectiveCamera :position="[9, 9, 9]" />
+  <TresCanvas clear-color="#AAAAAA" preset="realistic">
+    <TresPerspectiveCamera :position="[1, 7, 1]" />
     <OrbitControls />
-    <Box :scale="2">
-      <TresMeshToonMaterial color="orange" />
-    </Box>
     <primitive :object="obj" />
-    <TresAmbientLight :intensity="0.5" />
-    <TresDirectionalLight :position="[0, 2, 4]" :intensity="0.5" cast-shadow />
+    <TresAmbientLight :intensity="0.2" />
+    <TresGridHelper :size="10" :divisions="10" />
   </TresCanvas>
 </template>
