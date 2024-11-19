@@ -1,30 +1,30 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div class="pattern">
-    <slot />
+  <div class="pattern inset-0 absolute">
+    <div class="pattern-gradient absolute bottom-0" />
   </div>
 </template>
 
 <style lang="scss" scoped>
-$bg: #eaeaea; // #121212
-$bg2: #fafafa; // #1a1a1a
+$bg: #1d1d1d;
+$bg2: #4e4f51;
+$bg3: #3c3c3c;
+$size: 200px;
 
 .pattern {
-  @apply w-full h-full flex justify-center items-center;
+  width: 100%;
+  height: 100%;
 
-  animation: move 4s linear infinite;
-  background: #121212;
-  background: linear-gradient(135deg, $bg 25%, $bg2 25%, $bg2 50%, $bg 50%, $bg 75%, $bg2 75%, $bg2);
-  background-size: 40px 40px;
+  background:
+    repeating-conic-gradient(from 30deg, #0000 0 120deg, $bg3 0 180deg) calc(0.5 * $size) calc(0.5 * $size * 0.577),
+    repeating-conic-gradient(from 30deg, $bg 0 60deg, $bg2 0 120deg, $bg3 0 180deg);
+  background-size: $size calc($size * 0.577);
 }
 
-@keyframes move {
-  0% {
-    background-position: 0 0;
-  }
-  100% {
-    background-position: 40px 40px;
-  }
+.pattern-gradient {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(37.5deg, transparent 0, $bg 40%);
 }
 </style>

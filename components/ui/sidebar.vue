@@ -1,33 +1,59 @@
 <script setup lang="ts">
-const { sidebarOpened } = useLayout();
+import Pattern from './pattern.vue';
+
+const { sidebarOpened, toggleSidebar } = useLayout();
 
 const width = computed(() => {
-  return sidebarOpened.value ? '180px' : '60px';
+  return sidebarOpened.value ? '180px' : '50px';
+});
+
+const menuPadding = computed(() => {
+  return sidebarOpened.value ? '0 16px' : '0';
+});
+
+const itemPadding = computed(() => {
+  return sidebarOpened.value ? '8px 16px' : '8px 0';
 });
 
 interface MenuItem {
   icon: string;
   title: string;
-  route: string;
+  callback?: () => void;
 }
 const list: MenuItem[] = [
-  { icon: 'pixelarticons:script', title: '科技树', route: '/tech-tree' },
-  { icon: 'pixelarticons:command', title: '功能', route: '/features' },
-  { icon: 'pixelarticons:bulletlist', title: '设置', route: '/settings' },
+  { icon: 'pixelarticons:script', title: '科技树' },
+  { icon: 'pixelarticons:command', title: '功能' },
+  { icon: 'pixelarticons:bulletlist', title: '设置' },
 ];
+
+const bottomList: MenuItem[] = [{ icon: 'pixelarticons:arrow-bar-left', title: '收起', callback: toggleSidebar }];
 </script>
 
 <template>
   <div class="sidebar">
+    <Pattern />
     <div class="logo">
-      <span v-if="sidebarOpened">MachineHub</span>
-      <span v-else>MH</span>
+      <span v-if="sidebarOpened">
+        <span>Machine</span>
+        <span class="text-orange-500">Hub</span>
+      </span>
+      <span v-else>
+        <span>m</span>
+        <span class="text-orange-500">h</span>
+      </span>
     </div>
 
     <ul class="list">
-      <li v-for="item in list" :key="item.title">
+      <li v-for="item in list" :key="item.title" @click="item?.callback">
         <Icon class="text-2xl" :name="item.icon" />
-        <span>{{ item.title }}</span>
+        <span v-if="sidebarOpened" class="ml-auto">{{ item.title }}</span>
+      </li>
+
+      <div class="mt-auto" />
+
+      <li v-for="item in bottomList" :key="item.title" @click="item?.callback">
+        <Icon class="text-2xl" :name="item.icon" />
+        <span v-if="sidebarOpened" class="ml-auto">{{ item.title }}</span>
       </li>
     </ul>
   </div>
@@ -35,24 +61,28 @@ const list: MenuItem[] = [
 
 <style lang="scss" scoped>
 .sidebar {
-  @apply transition-all bg-black bg-opacity-85 text-white flex flex-col items-center pt-4;
+  @apply relative transition-all text-neutral-200 flex flex-col items-center py-4;
 
   width: v-bind(width);
   min-width: v-bind(width);
 }
 
 .logo {
-  @apply text-lg font-semibold text-neutral-300;
+  @apply select-none text-lg font-semibold text-neutral-300 opacity-95;
 }
 
 .list {
-  @apply mt-6 flex items-center w-full px-4 flex-col gap-1;
+  @apply mt-6 flex items-center w-full h-full flex-col gap-2 z-[1];
+
+  padding: v-bind(menuPadding);
 
   li {
-    @apply transition-all select-none duration-150 inline-flex justify-between w-full items-center px-4 text-gray-300 py-2 cursor-pointer;
+    @apply text-nowrap overflow-hidden transition-all select-none duration-150 inline-flex w-full justify-center items-center text-neutral-300 cursor-pointer;
+
+    padding: v-bind(itemPadding);
 
     &:hover {
-      @apply bg-neutral-700 scale-105;
+      @apply bg-black bg-opacity-45 scale-105;
     }
   }
 

@@ -7,7 +7,7 @@ const isOpen = ref(true);
 
 <template>
   <div
-    class="min-w-[190px] text-neutral-300 bg-black select-none bg-opacity-50 pl-3 pr-4 py-2 gap-1 flex flex-col items-start"
+    class="min-w-[200px] border border-neutral-500 border-opacity-20 shadow-xl text-neutral-300 bg-black select-none bg-opacity-50 pl-3 pr-4 py-2 gap-1 flex flex-col items-start"
   >
     <div
       class="flex items-center w-full gap-2 cursor-pointer hover:text-orange-50 transition-all duration-300"

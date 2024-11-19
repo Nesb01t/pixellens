@@ -72,7 +72,7 @@ const fixAroundWater = (obj: MachineObj) => {
   material.polygonOffsetFactor = -1;
   material.polygonOffsetUnits = 1;
 
-  material.opacity = 0.75;
+  material.opacity = 0.65;
 
   obj.castShadow = false;
   obj.receiveShadow = true;
@@ -93,7 +93,7 @@ const fixTopWater = (obj: MachineObj) => {
   material.polygonOffsetFactor = -1;
   material.polygonOffsetUnits = 1;
 
-  material.opacity = 0.75;
+  material.opacity = 0.85;
 
   obj.castShadow = false;
   obj.receiveShadow = true;
