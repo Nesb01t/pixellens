@@ -1,38 +1,24 @@
 <script setup lang="ts">
 import { OrbitControls } from '@tresjs/cientos';
-import { useEventListener } from '@vueuse/core';
 import { TresCanvas } from '@tresjs/core';
-import { reactive, watchEffect } from 'vue';
-import { useModelBridge } from '~/composables/model-bridge';
 
 const modelBridge = useModelBridge();
 const obj = await modelBridge.getGltfExample();
-
-obj.scale.set(0.18, 0.18, 0.18);
-
-const state = reactive({
-  objPositionX: 0,
-  objPositionY: 0,
-  objPositionZ: 0,
-  wireframe: false,
-});
-
-watchEffect(() => {
-  obj.position.x = state.objPositionX;
-  obj.position.y = state.objPositionY;
-  obj.position.z = state.objPositionZ;
-});
-
-useEventListener('resize', () => {});
 </script>
 
 <template>
   <div class="w-full h-full relative">
-    <TresCanvas clear-color="#AAAAAA" preset="realistic">
+    <TresCanvas clear-color="#333333" preset="realistic">
       <TresPerspectiveCamera :position="[3, 3, 3]" />
-      <OrbitControls />
+      <OrbitControls make-default />
+
+      <!-- items -->
       <primitive :object="obj" />
-      <TresAmbientLight :intensity="0.2" />
+
+      <!-- env -->
+      <Stars :rotation="[0, 0, 0]" :radius="50" :depth="50" :count="2000" :size="0.3" :size-attenuation="true" />
+      <TresAmbientLight :intensity="0.65" />
+      <TresDirectionalLight shadow-bias="-0.0001" cast-shadow :position="[0, 2, 0]" :intensity="0.7" />
       <TresGridHelper :size="10" :divisions="10" />
     </TresCanvas>
 

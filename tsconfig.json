@@ -1,3 +1,6 @@
 {
+  "compilerOptions": {
+    "types": ["vite-plugin-glsl/ext"]
+  },
   "extends": "./.nuxt/tsconfig.json"
 }

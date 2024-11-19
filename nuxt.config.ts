@@ -1,3 +1,5 @@
+import glsl from 'vite-plugin-glsl';
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   modules: ['@nuxt/eslint', '@nuxtjs/tailwindcss', '@tresjs/nuxt', '@nuxt/icon'],
@@ -13,5 +15,6 @@ export default defineNuxtConfig({
         },
       },
     },
+    plugins: [glsl()],
   },
 });
