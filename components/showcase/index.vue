@@ -17,10 +17,11 @@ const obj = await modelBridge.getGltfExample();
 
       <!-- env -->
       <Stars :rotation="[0, 0, 0]" :radius="50" :depth="50" :count="2000" :size="0.3" :size-attenuation="true" />
-      <TresAmbientLight :intensity="0.5" />
-      <TresDirectionalLight shadow-bias="-0.0001" cast-shadow :position="[0, 0, 2]" :intensity="0.1" />
-      <TresDirectionalLight shadow-bias="-0.0001" cast-shadow :position="[0, 2, 0]" :intensity="0.6" />
-      <TresDirectionalLight shadow-bias="-0.0001" cast-shadow :position="[2, 0, 0]" :intensity="0.3" />
+      <TresAmbientLight :intensity="0.18" />
+      <TresDirectionalLight shadow-bias="-0.0001" cast-shadow :position="[0, 0, 2]" :intensity="0.35" />
+      <TresDirectionalLight shadow-bias="-0.0001" cast-shadow :position="[0, 2, 0]" :intensity="0.45" />
+      <TresDirectionalLight shadow-bias="-0.0001" cast-shadow :position="[-2, 0, 0]" :intensity="0.5" />
+      <TresDirectionalLight shadow-bias="-0.0001" cast-shadow :position="[2, 0, 0]" :intensity="0.1" />
       <TresGridHelper :size="10" :divisions="10" />
     </TresCanvas>
 
