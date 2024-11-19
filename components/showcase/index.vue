@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { OrbitControls } from '@tresjs/cientos';
 import { useEventListener } from '@vueuse/core';
+import { TresCanvas } from '@tresjs/core';
 import { reactive, watchEffect } from 'vue';
 import { useModelBridge } from '~/composables/model-bridge';
 
@@ -26,11 +27,15 @@ useEventListener('resize', () => {});
 </script>
 
 <template>
-  <TresCanvas clear-color="#AAAAAA" preset="realistic">
-    <TresPerspectiveCamera :position="[1, 7, 1]" />
-    <OrbitControls />
-    <primitive :object="obj" />
-    <TresAmbientLight :intensity="0.2" />
-    <TresGridHelper :size="10" :divisions="10" />
-  </TresCanvas>
+  <div class="w-full h-full relative">
+    <TresCanvas clear-color="#AAAAAA" preset="realistic">
+      <TresPerspectiveCamera :position="[3, 3, 3]" />
+      <OrbitControls />
+      <primitive :object="obj" />
+      <TresAmbientLight :intensity="0.2" />
+      <TresGridHelper :size="10" :divisions="10" />
+    </TresCanvas>
+
+    <ShowcaseHelper />
+  </div>
 </template>
