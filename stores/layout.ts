@@ -1,7 +1,7 @@
 import { useWindowSize } from '@vueuse/core';
 
 export type SidebarStatus = boolean | 'auto';
-export type DrawerStatus = 'closed' | 'settings' | 'tech-tree' | 'utils';
+export type DrawerStatus = 'closed' | 'settings' | 'machine' | 'utils';
 
 export const useLayoutStore = defineStore(
   'layout',

@@ -49,11 +49,11 @@ const drawerContent: Record<DrawerStatus, DrawerContent | undefined> = {
   },
   utils: {
     title: '功能',
-    content: '一些便利功能, 欢迎建议 !',
+    content: '计划添加中, 欢迎建议 !',
   },
-  'tech-tree': {
-    title: '科技树',
-    content: '简易的生电科技树 / 列表',
+  machine: {
+    title: '机器',
+    content: '仍在补充和分类中...',
     subComponents: manager,
   },
 };
@@ -65,7 +65,7 @@ const drawerContent: Record<DrawerStatus, DrawerContent | undefined> = {
     class="w-full h-full transition-all duration-300 ease-out absolute overflow-hidden text-nowrap left-0 top-0 gradient-trans text-neutral-400"
   >
     <div class="w-full h-full flex flex-col items-start px-6 py-4 gap-2">
-      <div class="inline-flex items-center w-full">
+      <div class="inline-flex items-center w-full h-[32px]">
         <h1
           class="text-2xl tracking-wide select-none font-semibold text-transparent bg-clip-text bg-gradient-to-br from-orange-50 to-neutral-600 opacity-75"
         >

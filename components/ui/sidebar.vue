@@ -21,7 +21,7 @@ interface MenuItem {
   callback?: () => void;
 }
 const list: MenuItem[] = [
-  { icon: 'pixelarticons:script', title: '科技树', callback: () => layoutStore.openDrawer('tech-tree') },
+  { icon: 'pixelarticons:script', title: '科技树', callback: () => layoutStore.openDrawer('machine') },
   { icon: 'pixelarticons:command', title: '功能', callback: () => layoutStore.openDrawer('utils') },
   { icon: 'pixelarticons:bulletlist', title: '设置', callback: () => layoutStore.openDrawer('settings') },
 ];

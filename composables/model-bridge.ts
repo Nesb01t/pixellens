@@ -1,8 +1,14 @@
-import * as THREE from 'three';
-
-import testGltf from '@/assets/models/base1.刷线机.glb';
+import test1 from '@/assets/models/base1.刷线机.glb';
+import test2 from '@/assets/models/base2.简易皮革机.glb';
 
 import type { Object3D } from 'three';
+
+const models = {
+  base1: test1,
+  base2: test2,
+};
+
+export type ModelName = keyof typeof models;
 
 export interface MachineObj extends Object3D {
   material?: any;
@@ -10,8 +16,8 @@ export interface MachineObj extends Object3D {
 }
 
 export const useModelBridge = () => {
-  const getGltfExample = async () => {
-    const glbObject = await useGLTF(testGltf);
+  const getParsedModel = async (modelName: ModelName) => {
+    const glbObject = await useGLTF(models[modelName]);
 
     /**
      * generic fix
@@ -53,7 +59,7 @@ export const useModelBridge = () => {
   };
 
   return {
-    getGltfExample,
+    getParsedModel,
   };
 };
 
