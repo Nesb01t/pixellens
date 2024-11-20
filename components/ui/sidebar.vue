@@ -1,18 +1,18 @@
 <script setup lang="ts">
 import Pattern from './pattern.vue';
 
-const { sidebarOpened, toggleSidebar, openDrawer } = useLayout();
+const layoutStore = useLayoutStore();
 
 const width = computed(() => {
-  return sidebarOpened.value ? '180px' : '50px';
+  return layoutStore.sidebarOpened ? '180px' : '50px';
 });
 
 const menuPadding = computed(() => {
-  return sidebarOpened.value ? '0 16px' : '0';
+  return layoutStore.sidebarOpened ? '0 16px' : '0';
 });
 
 const itemPadding = computed(() => {
-  return sidebarOpened.value ? '8px 16px' : '8px 0';
+  return layoutStore.sidebarOpened ? '8px 16px' : '8px 0';
 });
 
 interface MenuItem {
@@ -21,19 +21,21 @@ interface MenuItem {
   callback?: () => void;
 }
 const list: MenuItem[] = [
-  { icon: 'pixelarticons:script', title: '科技树', callback: () => openDrawer('tech-tree') },
-  { icon: 'pixelarticons:command', title: '功能', callback: () => openDrawer('utils') },
-  { icon: 'pixelarticons:bulletlist', title: '设置', callback: () => openDrawer('settings') },
+  { icon: 'pixelarticons:script', title: '科技树', callback: () => layoutStore.openDrawer('tech-tree') },
+  { icon: 'pixelarticons:command', title: '功能', callback: () => layoutStore.openDrawer('utils') },
+  { icon: 'pixelarticons:bulletlist', title: '设置', callback: () => layoutStore.openDrawer('settings') },
 ];
 
-const bottomList: MenuItem[] = [{ icon: 'pixelarticons:arrow-bar-left', title: '收起', callback: toggleSidebar }];
+const bottomList: MenuItem[] = [
+  { icon: 'pixelarticons:arrow-bar-left', title: '收起', callback: () => layoutStore.toggleSidebar() },
+];
 </script>
 
 <template>
   <div class="sidebar">
     <Pattern />
     <div class="logo">
-      <span v-if="sidebarOpened">
+      <span v-if="layoutStore.sidebarOpened">
         <span>Machine</span>
         <span class="text-orange-500">Hub</span>
       </span>
@@ -46,14 +48,14 @@ const bottomList: MenuItem[] = [{ icon: 'pixelarticons:arrow-bar-left', title: '
     <ul class="list">
       <li v-for="item in list" :key="item.title" @click="item?.callback">
         <Icon class="text-2xl" :name="item.icon" />
-        <span v-if="sidebarOpened" class="ml-auto">{{ item.title }}</span>
+        <span v-if="layoutStore.sidebarOpened" class="ml-auto">{{ item.title }}</span>
       </li>
 
       <div class="mt-auto" />
 
       <li v-for="item in bottomList" :key="item.title" @click="item?.callback">
         <Icon class="text-2xl" :name="item.icon" />
-        <span v-if="sidebarOpened" class="ml-auto">{{ item.title }}</span>
+        <span v-if="layoutStore.sidebarOpened" class="ml-auto">{{ item.title }}</span>
       </li>
     </ul>
   </div>

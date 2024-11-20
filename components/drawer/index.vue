@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import manager from '../litematic/manager.vue';
-const layout = useLayout();
+const layoutStore = useLayoutStore();
 const bufferedDrawerStatus = ref<DrawerStatus>('closed');
 const bufferLock = ref(false);
 watch(
-  () => layout.drawerStatus.value,
+  () => layoutStore.drawerStatus,
   (status) => {
     if (bufferLock.value) {
       return;
@@ -19,12 +19,16 @@ watch(
   { immediate: true },
 );
 
+const close = () => {
+  layoutStore.drawerStatus = 'closed';
+};
+
 const isOpen = computed(() => {
   return bufferedDrawerStatus.value !== 'closed';
 });
 
 const castMaxWidthAnimeClass = computed(() => {
-  return isOpen.value ? 'max-w-[300px] min-w-[300px]' : 'max-w-[0px] min-w-[0px]';
+  return isOpen.value ? 'max-w-[270px] min-w-[270px]' : 'max-w-[0px] min-w-[0px]';
 });
 
 const castOpacityAnimeClass = computed(() => {
@@ -58,14 +62,21 @@ const drawerContent: Record<DrawerStatus, DrawerContent | undefined> = {
 <template>
   <div
     :class="[castMaxWidthAnimeClass, castOpacityAnimeClass].join(' ')"
-    class="h-full transition-all pointer-events-none duration-300 ease-out absolute overflow-hidden text-nowrap left-0 top-0 bg-gradient-to-r from-black to-transparent text-neutral-400"
+    class="w-full h-full transition-all duration-300 ease-out absolute overflow-hidden text-nowrap left-0 top-0 gradient-trans text-neutral-400"
   >
-    <div class="w-full h-full flex flex-col items-start px-6 py-4 gap-2 pointer-events-none">
-      <h1
-        class="text-2xl tracking-wide select-none font-semibold text-transparent bg-clip-text bg-gradient-to-br from-orange-50 to-neutral-600 opacity-75"
-      >
-        {{ drawerContent[bufferedDrawerStatus]?.title }}
-      </h1>
+    <div class="w-full h-full flex flex-col items-start px-6 py-4 gap-2">
+      <div class="inline-flex items-center w-full">
+        <h1
+          class="text-2xl tracking-wide select-none font-semibold text-transparent bg-clip-text bg-gradient-to-br from-orange-50 to-neutral-600 opacity-75"
+        >
+          {{ drawerContent[bufferedDrawerStatus]?.title }}
+        </h1>
+        <Icon
+          class="text-2xl text-neutral-400 transition-all duration-300 hover:text-orange-500 ml-auto cursor-pointer"
+          name="pixelarticons:close"
+          @click="close"
+        />
+      </div>
 
       <p
         class="text-lg tracking-wide select-none font-light text-transparent bg-clip-text bg-gradient-to-br from-orange-50 to-neutral-600 opacity-75"
@@ -73,7 +84,7 @@ const drawerContent: Record<DrawerStatus, DrawerContent | undefined> = {
         {{ drawerContent[bufferedDrawerStatus]?.content }}
       </p>
 
-      <div class="border-t w-[50%] opacity-15 mt-1 mb-3" />
+      <div class="border-t w-[70%] opacity-15 mt-1 mb-3" />
       <component
         :is="drawerContent[bufferedDrawerStatus]?.subComponents"
         v-if="drawerContent[bufferedDrawerStatus]?.subComponents"
@@ -82,4 +93,8 @@ const drawerContent: Record<DrawerStatus, DrawerContent | undefined> = {
   </div>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.gradient-trans {
+  background: linear-gradient(100deg, black, #111 50%, transparent 100%);
+}
+</style>

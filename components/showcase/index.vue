@@ -9,7 +9,7 @@ const obj = await modelBridge.getGltfExample();
 
 <template>
   <div class="w-full h-full relative">
-    <TresCanvas clear-color="#080808" preset="realistic">
+    <TresCanvas clear-color="#222" preset="realistic">
       <TresPerspectiveCamera :position="[3, 3, 3]" />
       <OrbitControls make-default />
       <TresGridHelper :size="10" :divisions="10" />
