@@ -1,9 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div>
-    <slot />
-  </div>
+  <div>kejishu</div>
 </template>
 
 <style lang="scss" scoped></style>

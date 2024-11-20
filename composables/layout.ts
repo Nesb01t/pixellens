@@ -1,14 +1,16 @@
 import { useWindowSize } from '@vueuse/core';
 
-type SidebarStatus = boolean | 'auto';
-type DrawerStatus = 'closed' | 'settings' | 'about' | 'help';
+export type SidebarStatus = boolean | 'auto';
+export type DrawerStatus = 'closed' | 'settings' | 'tech-tree' | 'utils';
+
+const sidebarStatus = ref<SidebarStatus>('auto');
+const drawerStatus = ref<DrawerStatus>('closed');
 
 export const useLayout = () => {
   const { width: windowWidth } = useWindowSize();
 
   const isMobile = computed(() => windowWidth.value < 768);
 
-  const sidebarStatus = ref<SidebarStatus>('auto');
   const sidebarOpened = computed(() => {
     if (sidebarStatus.value === 'auto') {
       return !isMobile.value;
@@ -27,7 +29,6 @@ export const useLayout = () => {
   /**
    * Drawer
    */
-  const drawerStatus = ref('closed');
   const openDrawer = (drawerPage: DrawerStatus) => {
     drawerStatus.value = drawerPage;
   };

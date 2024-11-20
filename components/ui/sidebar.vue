@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Pattern from './pattern.vue';
 
-const { sidebarOpened, toggleSidebar } = useLayout();
+const { sidebarOpened, toggleSidebar, openDrawer } = useLayout();
 
 const width = computed(() => {
   return sidebarOpened.value ? '180px' : '50px';
@@ -21,9 +21,9 @@ interface MenuItem {
   callback?: () => void;
 }
 const list: MenuItem[] = [
-  { icon: 'pixelarticons:script', title: '科技树' },
-  { icon: 'pixelarticons:command', title: '功能' },
-  { icon: 'pixelarticons:bulletlist', title: '设置' },
+  { icon: 'pixelarticons:script', title: '科技树', callback: () => openDrawer('tech-tree') },
+  { icon: 'pixelarticons:command', title: '功能', callback: () => openDrawer('utils') },
+  { icon: 'pixelarticons:bulletlist', title: '设置', callback: () => openDrawer('settings') },
 ];
 
 const bottomList: MenuItem[] = [{ icon: 'pixelarticons:arrow-bar-left', title: '收起', callback: toggleSidebar }];

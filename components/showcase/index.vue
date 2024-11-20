@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { OrbitControls } from '@tresjs/cientos';
 import { TresCanvas } from '@tresjs/core';
+import Drawer from '~/components/drawer/index.vue';
 
 const modelBridge = useModelBridge();
 const obj = await modelBridge.getGltfExample();
@@ -25,6 +26,7 @@ const obj = await modelBridge.getGltfExample();
       <TresDirectionalLight shadow-bias="-0.0005" cast-shadow :position="[1, 2, -0.5]" :intensity="0.7" />
     </TresCanvas>
 
+    <Drawer />
     <ShowcaseHelper />
   </div>
 </template>
