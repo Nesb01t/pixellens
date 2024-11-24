@@ -4,10 +4,20 @@ import type { IMachine } from '~/types/machine';
 defineProps<{
   machine: IMachine;
 }>();
+
+const gametipStore = useGameTipStore();
+
+const enter = () => {
+  gametipStore.setVisible(true);
+};
+
+const leave = () => {
+  gametipStore.setVisible(false);
+};
 </script>
 
 <template>
-  <div class="achievement-card">
+  <div class="achievement-card" @mouseenter="enter" @mouseleave="leave">
     <div class="inline-flex items-end gap-1">
       <h3 class="title">
         {{ machine.name }}

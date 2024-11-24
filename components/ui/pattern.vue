@@ -1,8 +1,9 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div class="pattern inset-0 absolute">
-    <div class="pattern-gradient absolute bottom-0" />
+  <div class="pattern-wrapper">
+    <div class="pattern absolute inset-0" />
+    <div class="pattern-gradient inset-0 absolute" />
   </div>
 </template>
 
@@ -12,10 +13,18 @@ $bg2: #4e4f51;
 $bg3: #3c3c3c;
 $size: 200px;
 
+.pattern-wrapper {
+  @apply absolute inset-0;
+  width: 100%;
+  height: 100%;
+}
+
 .pattern {
+  z-index: 0;
   width: 100%;
   height: 100%;
 
+  animation: flow 20s linear infinite;
   background:
     repeating-conic-gradient(from 30deg, #0000 0 120deg, $bg3 0 180deg) calc(0.5 * $size) calc(0.5 * $size * 0.577),
     repeating-conic-gradient(from 30deg, $bg 0 60deg, $bg2 0 120deg, $bg3 0 180deg);
@@ -23,8 +32,19 @@ $size: 200px;
 }
 
 .pattern-gradient {
+  z-index: 0;
+
   width: 100%;
   height: 100%;
   background: linear-gradient(37.5deg, transparent 0, $bg 40%);
+}
+
+@keyframes flow {
+  0% {
+    transform: translateY(0px);
+  }
+  100% {
+    transform: translateY(345px);
+  }
 }
 </style>
