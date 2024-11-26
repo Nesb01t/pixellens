@@ -7,5 +7,6 @@ declare module '*.fbx' {
 
 declare module '*.glb' {
   const src: string;
-  export default src;
+  const buffer: Buffer;
+  export default buffer;
 }

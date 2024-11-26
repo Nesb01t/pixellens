@@ -24,7 +24,13 @@ export default withNuxt(
           destructuredArrayIgnorePattern: '^_',
         },
       ],
-      'vue/attribute-hyphenation': 'error',
+      'vue/attribute-hyphenation': [
+        'error',
+        'always',
+        {
+          ignore: ['shadow-mapSize-width', 'shadow-mapSize-height', 'colorCenterLine', 'colorGrid'],
+        },
+      ],
       'vue/html-self-closing': [
         'error',
         {

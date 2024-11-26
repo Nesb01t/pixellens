@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import manager from '../litematic/manager.vue';
+import utilsPanel from '../utils-panel/index.vue';
+import setting from '../setting/index.vue';
+
 const layoutStore = useLayoutStore();
 const bufferedDrawerStatus = ref<DrawerStatus>('closed');
 const bufferLock = ref(false);
@@ -28,7 +31,7 @@ const isOpen = computed(() => {
 });
 
 const castMaxWidthAnimeClass = computed(() => {
-  return isOpen.value ? 'max-w-[270px] min-w-[270px]' : 'max-w-[0px] min-w-[0px]';
+  return isOpen.value ? 'max-w-[240px] min-w-[240px]' : 'max-w-[0px] min-w-[0px]';
 });
 
 const castOpacityAnimeClass = computed(() => {
@@ -46,14 +49,16 @@ const drawerContent: Record<DrawerStatus, DrawerContent | undefined> = {
   settings: {
     title: '设置',
     content: '选择主题 / 配置参数',
+    subComponents: setting,
   },
   utils: {
-    title: '功能',
-    content: '计划添加中, 欢迎建议 !',
+    title: '详情',
+    content: '当前选择机器的可用情报',
+    subComponents: utilsPanel,
   },
   machine: {
     title: '机器',
-    content: '仍在补充和分类中...',
+    content: '直观简单的机器参考百科',
     subComponents: manager,
   },
 };
@@ -79,7 +84,7 @@ const drawerContent: Record<DrawerStatus, DrawerContent | undefined> = {
       </div>
 
       <p
-        class="text-lg tracking-wide select-none font-light text-transparent bg-clip-text bg-gradient-to-br from-orange-50 to-neutral-600 opacity-75"
+        class="text-[14px] tracking-wide select-none font-light text-transparent bg-clip-text bg-gradient-to-br from-orange-50 to-neutral-600 opacity-75"
       >
         {{ drawerContent[bufferedDrawerStatus]?.content }}
       </p>
@@ -95,6 +100,6 @@ const drawerContent: Record<DrawerStatus, DrawerContent | undefined> = {
 
 <style lang="scss" scoped>
 .gradient-trans {
-  background: linear-gradient(100deg, black, #111 50%, transparent 100%);
+  background: rgba(0, 0, 0, 0.5);
 }
 </style>

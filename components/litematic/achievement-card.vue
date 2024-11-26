@@ -1,23 +1,34 @@
 <script setup lang="ts">
 import type { IMachine } from '~/types/machine';
 
-defineProps<{
+const props = defineProps<{
   machine: IMachine;
 }>();
 
 const gametipStore = useGameTipStore();
 
+const modelStore = useModelStore();
+
 const enter = () => {
+  gametipStore.setGameTipContent(unref(props.machine));
+
   gametipStore.setVisible(true);
 };
 
 const leave = () => {
   gametipStore.setVisible(false);
 };
+
+const click = () => {
+  const fileName = props.machine.private?.fileName;
+  if (fileName) {
+    modelStore.selectScene(fileName);
+  }
+};
 </script>
 
 <template>
-  <div class="achievement-card" @mouseenter="enter" @mouseleave="leave">
+  <div class="achievement-card" @mouseenter="enter" @mouseleave="leave" @click="click">
     <div class="inline-flex items-end gap-1">
       <h3 class="title">
         {{ machine.name }}

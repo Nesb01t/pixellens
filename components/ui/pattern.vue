@@ -8,10 +8,10 @@
 </template>
 
 <style lang="scss" scoped>
-$bg: #1d1d1d;
-$bg2: #4e4f51;
-$bg3: #3c3c3c;
-$size: 200px;
+$bg: #252423;
+$bg2: #3f3d3c;
+$bg3: #2d2b2b;
+$size: 145px;
 
 .pattern-wrapper {
   @apply absolute inset-0;
@@ -24,7 +24,7 @@ $size: 200px;
   width: 100%;
   height: 100%;
 
-  animation: flow 20s linear infinite;
+  animation: flow 30s linear infinite;
   background:
     repeating-conic-gradient(from 30deg, #0000 0 120deg, $bg3 0 180deg) calc(0.5 * $size) calc(0.5 * $size * 0.577),
     repeating-conic-gradient(from 30deg, $bg 0 60deg, $bg2 0 120deg, $bg3 0 180deg);

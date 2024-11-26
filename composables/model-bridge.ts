@@ -1,14 +1,6 @@
-import test1 from '@/assets/models/base1.刷线机.glb';
-import test2 from '@/assets/models/base2.简易皮革机.glb';
-
 import type { Object3D } from 'three';
 
-const models = {
-  base1: test1,
-  base2: test2,
-};
-
-export type ModelName = keyof typeof models;
+export type ModelName = string;
 
 export interface MachineObj extends Object3D {
   material?: any;
@@ -17,12 +9,19 @@ export interface MachineObj extends Object3D {
 
 export const useModelBridge = () => {
   const getParsedModel = async (modelName: ModelName) => {
-    const glbObject = await useGLTF(models[modelName]);
+    const modelFile = await import(`@/assets/models/${modelName}.glb`);
+    if (!modelFile.default) {
+      throw new Error(`model ${modelName} not found`);
+    }
+
+    const glbResults = await useGLTF(modelFile.default);
+
+    const glbScene = Array.isArray(glbResults) ? glbResults[0].scene : glbResults.scene;
 
     /**
      * generic fix
      */
-    glbObject.scene.traverse((child) => {
+    glbScene.traverse((child: any) => {
       const material = (child as any).material;
 
       // depth fix
@@ -39,7 +38,7 @@ export const useModelBridge = () => {
     /**
      * waterish material applied
      */
-    glbObject.scene.traverse((child) => {
+    glbScene.traverse((child: any) => {
       const name: string = child.name;
 
       if (name.includes('water_still')) {
@@ -49,13 +48,17 @@ export const useModelBridge = () => {
         fixTopWater(top);
         fixAroundWater(around);
       }
+
+      if (name.includes('glass')) {
+        fixGlass(child);
+      }
     });
 
     /**
      * global scaling
      */
-    glbObject.scene.scale.set(0.4, 0.4, 0.4);
-    return glbObject.scene;
+    glbScene.scale.set(0.4, 0.4, 0.4);
+    return glbScene;
   };
 
   return {
@@ -64,27 +67,24 @@ export const useModelBridge = () => {
 };
 
 const fixAroundWater = (obj: MachineObj) => {
-  const material = obj.material;
-  if (!material) {
-    return;
-  }
+  patchTransparent(obj);
 
-  obj.renderOrder = 1;
-  material.transparent = true;
-  material.depthWrite = false;
-  material.depthTest = true;
-
-  material.polygonOffset = true;
-  material.polygonOffsetFactor = -1;
-  material.polygonOffsetUnits = 1;
-
-  material.opacity = 0.65;
-
-  obj.castShadow = false;
-  obj.receiveShadow = true;
+  obj.material.opacity = 0.65;
 };
 
 const fixTopWater = (obj: MachineObj) => {
+  patchTransparent(obj);
+
+  obj.material.opacity = 0.85;
+};
+
+const fixGlass = (obj: MachineObj) => {
+  patchTransparent(obj);
+
+  obj.material.opacity = 0.8;
+};
+
+const patchTransparent = (obj: MachineObj) => {
   const material = obj.material;
   if (!material) {
     return;
@@ -98,8 +98,6 @@ const fixTopWater = (obj: MachineObj) => {
   material.polygonOffset = true;
   material.polygonOffsetFactor = -1;
   material.polygonOffsetUnits = 1;
-
-  material.opacity = 0.85;
 
   obj.castShadow = false;
   obj.receiveShadow = true;

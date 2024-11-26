@@ -4,10 +4,18 @@ import { useMouse } from '@vueuse/core';
 
 const gametipStore = useGameTipStore();
 
-const gametipContent = gametipStore.gametipContent;
+const { gametipContent } = storeToRefs(gametipStore);
 
 const opacityClass = computed(() => {
   return gametipStore.visible ? 'opacity-100' : 'opacity-0';
+});
+
+const textOpacityTransClass = ref('opacity-0');
+watch(gametipContent, () => {
+  textOpacityTransClass.value = 'opacity-0';
+  setTimeout(() => {
+    textOpacityTransClass.value = 'opacity-100 transition-all duration-[360ms]';
+  }, 33);
 });
 
 const { x, y } = useMouse();
@@ -28,12 +36,14 @@ const transXClass = computed(() => {
   <div class="gametip-wrapper">
     <div class="gametip-content" :class="[transXClass, opacityClass].join(' ')">
       <header class="flex items-end gap-1">
-        <h1 class="text-base text-neutral-300">{{ gametipContent.title }}</h1>
-        <h2 class="text-sm text-neutral-500">{{ gametipContent.tag }}</h2>
+        <h1 class="text-base text-neutral-300" :class="textOpacityTransClass">{{ gametipContent?.name }}</h1>
+        <h2 class="text-sm text-neutral-500" :class="textOpacityTransClass">{{ gametipContent?.category }}</h2>
       </header>
 
       <div class="border-b w-full opacity-15 my-2" />
-      <p class="text-neutral-600 text-sm">{{ gametipContent.description }}</p>
+      <div class="text-neutral-600 text-sm text-nowrap" :class="textOpacityTransClass">
+        <div v-for="(d, idx) in gametipContent?.descriptions" :key="idx">{{ d }}</div>
+      </div>
     </div>
   </div>
 </template>

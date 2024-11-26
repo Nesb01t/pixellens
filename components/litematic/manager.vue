@@ -1,17 +1,6 @@
 <script setup lang="ts">
-import type { IMachine } from '~/types/machine';
 import AchievementCard from './achievement-card.vue';
-
-const machines: IMachine[] = [
-  {
-    name: '刷线机',
-    category: '基础',
-  },
-  {
-    name: '养牛机',
-    category: '基础',
-  },
-];
+import { machines } from 'assets/data/machines';
 </script>
 
 <template>

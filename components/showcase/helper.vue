@@ -47,7 +47,7 @@ ul.helper-list {
   @apply flex flex-col gap-1;
 
   li {
-    @apply flex items-center gap-[10px] pl-[2px];
+    @apply flex items-center gap-[9px] pl-[3px];
   }
 }
 </style>
