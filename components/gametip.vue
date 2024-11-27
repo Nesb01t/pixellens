@@ -44,6 +44,11 @@ const transXClass = computed(() => {
       <div class="text-neutral-600 text-sm text-nowrap" :class="textOpacityTransClass">
         <div v-for="(d, idx) in gametipContent?.descriptions" :key="idx">{{ d }}</div>
       </div>
+
+      <div class="mt-auto pt-2 text-orange-500/60 flex items-center text-nowrap text-xs" :class="textOpacityTransClass">
+        <Icon name="pixelarticons:forward" class="text-xl" />
+        点击选择机器并查看详情
+      </div>
     </div>
   </div>
 </template>
@@ -56,6 +61,6 @@ const transXClass = computed(() => {
 }
 
 .gametip-content {
-  @apply absolute px-3 py-2 text-white/50 text-sm transition-all duration-300 min-w-[200px] min-h-[120px] border border-neutral-400/30 backdrop-blur-sm bg-black/50;
+  @apply absolute flex flex-col px-3 py-2 text-white/50 text-sm transition-all duration-300 min-w-[200px] min-h-[120px] border border-neutral-400/30 backdrop-blur-sm bg-black/50;
 }
 </style>

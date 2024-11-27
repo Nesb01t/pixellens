@@ -5,6 +5,11 @@ declare module '*.fbx' {
   export default src;
 }
 
+declare module '*.txt' {
+  const src: string;
+  export default src;
+}
+
 declare module '*.glb' {
   const src: string;
   const buffer: Buffer;

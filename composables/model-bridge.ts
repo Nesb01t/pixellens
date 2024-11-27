@@ -1,4 +1,4 @@
-import type { Object3D } from 'three';
+import type { Object3D, Scene } from 'three';
 
 export type ModelName = string;
 
@@ -8,14 +8,8 @@ export interface MachineObj extends Object3D {
 }
 
 export const useModelBridge = () => {
-  const getParsedModel = async (modelName: ModelName) => {
-    const modelFile = await import(`@/assets/models/${modelName}.glb`);
-    if (!modelFile.default) {
-      throw new Error(`model ${modelName} not found`);
-    }
-
-    const glbResults = await useGLTF(modelFile.default);
-
+  const getParsedModel = async (modelName: ModelName): Promise<Scene> => {
+    const glbResults = await useGLTF(`/models/${modelName}.glb`);
     const glbScene = Array.isArray(glbResults) ? glbResults[0].scene : glbResults.scene;
 
     /**

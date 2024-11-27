@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const modelStore = useModelStore();
-const { scene, lastScene, modelName } = storeToRefs(modelStore);
+const { scene, lastScene } = storeToRefs(modelStore);
 
 onMounted(() => {
   modelStore.loadScene();

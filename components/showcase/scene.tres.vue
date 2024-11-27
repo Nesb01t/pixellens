@@ -23,12 +23,9 @@ const envLightMultiplier = computed(() => {
       return 0.4;
     case SceneEnvType.OCEAN:
       return 0.8;
+    default:
+      return 1;
   }
-});
-
-const aref = ref();
-onMounted(() => {
-  console.log(aref.value);
 });
 </script>
 
@@ -36,7 +33,7 @@ onMounted(() => {
   <TresCanvas clear-color="#1a1a1a" preset="realistic">
     <TresPerspectiveCamera :position="[3, 3, 3]" />
     <OrbitControls make-default />
-    <TresGridHelper ref="aref" :size="10" :divisions="10" material-color="#D3BBA1" />
+    <TresGridHelper :size="10" :divisions="10" material-color="#D3BBA1" />
 
     <!-- items -->
     <Machine />

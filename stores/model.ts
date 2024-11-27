@@ -1,8 +1,11 @@
 import type { Scene } from 'three';
 import type { ModelName } from '~/composables/model-bridge';
 import dayjs from 'dayjs';
+import { translate, translatePatchLogger } from '~/utils/translate';
+import { loadMaterialMap } from '~/utils/material-parser';
 
 export const DEFAULT_MODEL = 'base2.简易皮革机';
+
 export const useModelStore = defineStore('model', () => {
   const scene = shallowRef<Scene | null>(null);
   const modelName = ref<ModelName | null>(localStorage.getItem('modelName') || null);
@@ -14,13 +17,18 @@ export const useModelStore = defineStore('model', () => {
     if (!newModelName || status.value === 'loading' || status.value === 'transmoging') {
       return;
     }
-    console.log(JSON.stringify(newModelName));
     modelName.value = newModelName;
     localStorage.setItem('modelName', newModelName as string);
     try {
       status.value = 'loading';
       lastScene.value = scene.value ? scene.value.clone() : null;
       scene.value = await useModelBridge().getParsedModel(newModelName);
+      if (!scene.value) {
+        return;
+      }
+
+      // seek
+      seekScene(scene.value);
       status.value = 'transmoging';
       await castToggleAnimation();
       status.value = 'loaded';
@@ -34,6 +42,33 @@ export const useModelStore = defineStore('model', () => {
       await selectScene(modelName.value);
     } catch {
       await selectScene(DEFAULT_MODEL);
+    }
+  };
+
+  const blockKeys = ref<string[]>([]);
+  const materialMap = ref<Record<string, number> | undefined>(undefined);
+  const seekScene = async (scene: Scene) => {
+    const { seekAll } = useSeek();
+    const items = seekAll(scene, 'type', 'Mesh');
+
+    const itemTurple = new Set<string>();
+
+    items.forEach((item) => {
+      const name = removeTrailingUnderscoreAndDigits(item.name);
+      const translateName = translate(name);
+      if (translatePatchLogger.isEnabled && translateName === name) {
+        translatePatchLogger.addValue(translateName);
+      }
+      itemTurple.add(translateName);
+    });
+
+    if (translatePatchLogger.isEnabled) {
+      translatePatchLogger.logWaitTranslateValues();
+    }
+
+    blockKeys.value = Array.from(itemTurple);
+    if (modelName.value) {
+      materialMap.value = await loadMaterialMap(blockKeys.value, modelName.value);
     }
   };
 
@@ -74,6 +109,8 @@ export const useModelStore = defineStore('model', () => {
     lastScene,
     modelName,
     status,
+    blockKeys,
+    materialMap,
     selectScene,
     loadScene,
   };
@@ -108,4 +145,9 @@ export const easeIn = (t: number) => {
 
 export const easeOut = (t: number) => {
   return 1 - Math.pow(1 - t, 2);
+};
+
+export const removeTrailingUnderscoreAndDigits = (str: string) => {
+  const regex = /_(\d+)$/;
+  return str.replace(regex, '');
 };

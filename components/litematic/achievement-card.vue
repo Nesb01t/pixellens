@@ -6,7 +6,7 @@ const props = defineProps<{
 }>();
 
 const gametipStore = useGameTipStore();
-
+const layoutStore = useLayoutStore();
 const modelStore = useModelStore();
 
 const enter = () => {
@@ -21,9 +21,13 @@ const leave = () => {
 
 const click = () => {
   const fileName = props.machine.private?.fileName;
-  if (fileName) {
-    modelStore.selectScene(fileName);
+  if (!fileName) {
+    return;
   }
+
+  modelStore.selectScene(fileName);
+  layoutStore.openDrawer('utils');
+  leave();
 };
 </script>
 
