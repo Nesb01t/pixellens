@@ -1,47 +1,79 @@
-# MachineHub 生电工房
+# pixellens 像素档案馆 · Minecraft Web 3D
 
-Tresjs 3D 我的世界生电指南
+![Three.js](https://img.shields.io/badge/Three.js-r148+-brightgreen)
+![Minecraft](https://img.shields.io/badge/Minecraft-1.19%2B-blue)
 
-3d wiki for minecraft survival machine.
+**「Build beyond blocks」** - 基于现代 WebGL 技术的像素结构三维可视化平台
 
-## Features
+## 介绍
 
-### Basically Resolved
+### 流程核心
 
-- Blender / Mineways / MachineHub 有效率的模型工作流
-- 材料手动英译中工具
-- 解析材质包自动进行纹理贴图
-- 通用的导入时材质补丁, 归一化纹理属性
-- 相机基础可交互
-- 同场景内动态增减物体
-- 物体进入和离开场景时动画
-- skybox 和氛围环境光
-- 实时的场景切换
-- 针对特殊物体 (玻璃 / 水等) 进行透明剔除和阴影特殊设置工具链
+- **3D 流水线** Litematic → OBJ → GLTF 自动化转换管道
+- **智能材质**
+  - 动态纹理映射与属性归一化, 根据 GLTF 传入名称智能应用材质
+  - 透明材质专用渲染通道 (AlphaHash)
+- **场景管理**
+  - 状态机场景切换控制器
+  - 视锥体动态加载 / 卸载
+  - 层级化透明度管理
 
-### Magic Features
+### 🛠️ 已实现功能
 
-暂时或不必要进行流程化 / 自动化的, 需要人工控制的部分
+| 模块 | 关键技术 | 进度 |
+|------|----------|------|
+| 渲染器 | Three.js / Tres.js 场景图<br>材质系统优化 | ✅ 100% |
+| 数据管道 | Litematic 二进制解析<br>GLTF 加载 | 📌 70% |
+| 本地化 i18n | i18n 翻译<br>人工校对界面 | ⚙️ 0% |
+| 交互系统 | 轨道控制器<br>射线拾取优化 | 📌 70% |
 
-- Machine 增加新机器
-  - 在 assets/data/machines.ts 中添加新机器描述
+### 🔮 模型工厂流程
 
-- Block 列表英译中 & 投影映射
-  - 当加载到未翻译的 Block 时会向控制台输出需要翻译的信息, 导入 LLM 进行翻译
-  - 需要在 utils/translate-mapping 中修复不恰当的翻译
-  - 并在 assets/materials 中置入原始 Litematic mod 导出的材料 .txt
+```mermaid
+graph LR
+    A[Litematic文件] --> B{Mineways转换器}
+    B --> C[OBJ模型]
+    C --> D[[Blender + Addon]]
+    D --> E[GLTF资源]
+    E --> F[材质注入器]
+    F --> G[pixellens]
+```
 
-- Blender / Mineways / MachineHub 模型工作流
-  - 首先在 mc 里完成建筑并提取获得 **(1. Litematic)**
-  - 然后在 Mineways 里导出建筑到 obj
-  - 在 Blender 中材质化 obj 并导出 gltf **(2. gltf)**
-  - 把上述内容分别置入 assets/litematic 和 assets/models
-### Todo
+#### 自定义扩展流程
 
-- 更友好美观的 UI/UX 体验
-- 基于 Shader 的顶点偏移动画
-- Enviorment 切换过渡动画
-- 支持对模型 / 材料列表进行 crud 的后端
-- 机器内部不可视的交互问题
-  - 像投影一样根据层级透视
-  - 或根据材质交互透视
+1. **术语本地化工作流**
+
+```mermaid
+[自动化流程]
+原始术语 -> GPT-4 翻译 -> 人工校验 -> 术语库版本控制
+
+[人工干预]
+- utils/translate-mapping 校对异常翻译
+- assets/materials 补充特殊材质定义
+```
+
+## 🛠️ 开发者指南
+
+### 环境配置
+
+```bash
+# pnpm + 依赖安装
+corepack enable
+pnpm install
+
+# 启动开发服务器
+pnpm dev
+```
+
+## 🚧 Roadmap
+
+### ⚙️ 基础架构升级
+
+- **渲染优化**
+  - [ ] 顶点动画
+
+### 💡 用户体验优化
+
+- **交互增强**
+  - [ ] 剖面透视系统
+  - [ ] 环境过渡动画 (GSAP 时间线)
