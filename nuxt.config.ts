@@ -14,9 +14,9 @@ export default defineNuxtConfig({
     head: {
       charset: 'utf-8',
       viewport: 'width=device-width, initial-scale=1',
-      title: 'MachineHub | 生电工房',
+      title: 'pixellens | 像素档案馆',
       meta: [
-        { name: 'description', content: '👾Minecraft MachineHub | Machine, Farm, Survival' },
+        { name: 'description', content: '👾Minecraft Pixellens | Machine, Farm, Survival' },
         { name: 'keywords', content: 'survival farm machine, minecraft survival redstone, 3d, mc, minecraft' },
       ],
     },

@@ -36,12 +36,12 @@ const bottomList: MenuItem[] = [
     <Pattern />
     <div class="logo">
       <span v-if="layoutStore.sidebarOpened">
-        <span>Machine</span>
-        <span class="text-orange-500">Hub</span>
+        <span>Pixel</span>
+        <span class="text-orange-500">Lens</span>
       </span>
       <span v-else>
-        <span>m</span>
-        <span class="text-orange-500">h</span>
+        <span>p</span>
+        <span class="text-orange-500">l</span>
       </span>
     </div>
 

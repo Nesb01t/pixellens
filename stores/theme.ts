@@ -1,7 +1,8 @@
 export enum SceneEnvType {
   STARS,
-  SKY,
-  OCEAN,
+  ROOM,
+  ASHEN,
+  VANILLA,
 }
 
 export const useThemeStore = defineStore(

@@ -3,8 +3,10 @@ import { OrbitControls } from '@tresjs/cientos';
 import { TresCanvas } from '@tresjs/core';
 import Machine from '~/components/showcase/machine.tres.vue';
 import { useThemeStore } from '~/stores/theme';
-import MinecraftEnv from '~/components/showcase/env/minecraft-env.tres.vue';
 import StarEnv from '~/components/showcase/env/star-env.tres.vue';
+import RoomEnv from '~/components/showcase/env/room-env.tres.vue';
+import AshenEnv from '~/components/showcase/env/ashen-env.tres.vue';
+import VanillaEnv from '~/components/showcase/env/vanilla-env.tres.vue';
 
 const themeStore = useThemeStore();
 
@@ -19,10 +21,10 @@ const envLightMultiplier = computed(() => {
   switch (sceneEnv.value) {
     case SceneEnvType.STARS:
       return 1;
-    case SceneEnvType.SKY:
-      return 0.4;
-    case SceneEnvType.OCEAN:
-      return 0.8;
+    case SceneEnvType.ROOM:
+      return 0.7;
+    case SceneEnvType.ASHEN:
+      return 0.3;
     default:
       return 1;
   }
@@ -68,7 +70,9 @@ const envLightMultiplier = computed(() => {
 
     <!-- env -->
     <StarEnv v-if="sceneEnv === SceneEnvType.STARS" />
-    <MinecraftEnv v-if="sceneEnv === SceneEnvType.SKY" />
+    <RoomEnv v-if="sceneEnv === SceneEnvType.ROOM" />
+    <AshenEnv v-if="sceneEnv === SceneEnvType.ASHEN" />
+    <VanillaEnv v-if="sceneEnv === SceneEnvType.VANILLA" />
   </TresCanvas>
 </template>
 

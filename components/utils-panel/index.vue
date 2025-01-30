@@ -80,11 +80,12 @@ const extractName = computed(() => {
   </h2>
 
   <ul class="download-list">
+    <span class="text-xs text-orange-500/50 mb-1">维护状态可能正常无法下载</span>
     <li>
       <Icon class="text-lg" name="pixelarticons:script-text" />
       <span>{{ `${extractName}.litematic` }}</span>
     </li>
-    <li>
+    <li v-if="isMaterialListAvailable">
       <Icon class="text-lg" name="pixelarticons:align-left" />
       <span>{{ `${extractName}.txt` }}</span>
     </li>

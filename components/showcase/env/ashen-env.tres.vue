@@ -10,12 +10,12 @@ import { SRGBColorSpace } from 'three';
       :encoding="SRGBColorSpace"
       :far="23"
       :files="[
-        '/textures/minecraft-env/nx.png',
-        '/textures/minecraft-env/ny.png',
-        '/textures/minecraft-env/pz.png',
-        '/textures/minecraft-env/nz.png',
-        '/textures/minecraft-env/px.png',
-        '/textures/minecraft-env/py.png',
+        '/textures/ashen-env/panorama_1.png',
+        '/textures/ashen-env/panorama_3.png',
+        '/textures/ashen-env/panorama_4.png',
+        '/textures/ashen-env/panorama_5.png',
+        '/textures/ashen-env/panorama_0.png',
+        '/textures/ashen-env/panorama_2.png',
       ]"
     />
   </Suspense>

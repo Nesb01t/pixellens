@@ -57,8 +57,8 @@ const drawerContent: Record<DrawerStatus, DrawerContent | undefined> = {
     subComponents: utilsPanel,
   },
   machine: {
-    title: '机器',
-    content: '直观简单的机器参考百科',
+    title: '列表',
+    content: '直观简单的结构档案',
     subComponents: manager,
   },
 };

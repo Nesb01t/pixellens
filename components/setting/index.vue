@@ -1,20 +1,25 @@
 <script lang="ts" setup>
 const envList = [
   {
-    name: '纯净',
+    name: '无暇星空',
     type: SceneEnvType.STARS,
     icon: 'pixelarticons:moon-star',
   },
   {
     name: '试炼密室',
-    type: SceneEnvType.SKY,
+    type: SceneEnvType.ROOM,
     icon: 'pixelarticons:wind',
   },
-  // {
-  //   name: '海洋',
-  //   type: SceneEnvType.OCEAN,
-  //   icon: 'pixelarticons:drop-half',
-  // },
+  {
+    name: '静谧森林',
+    type: SceneEnvType.ASHEN,
+    icon: 'pixelarticons:sun-alt',
+  },
+  {
+    name: '香草时光',
+    type: SceneEnvType.VANILLA,
+    icon: 'pixelarticons:cloud',
+  },
 ];
 
 const { sceneEnv } = storeToRefs(useThemeStore());
@@ -46,10 +51,10 @@ const { sceneEnv } = storeToRefs(useThemeStore());
 }
 
 .env-list {
-  @apply flex gap-2 w-full;
+  @apply flex gap-2 w-full flex-wrap;
 
   li {
-    @apply cursor-pointer hover:border-orange-500/50 transition-all duration-300 active:scale-95 select-none flex-1 items-center flex gap-2 border border-neutral-600/50 px-2 py-1;
+    @apply cursor-pointer hover:border-orange-500/50 transition-all duration-300 active:scale-95 select-none items-center flex gap-2 border border-neutral-600/50 px-2 py-1;
   }
 
   .active-item {
