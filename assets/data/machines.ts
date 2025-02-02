@@ -8,13 +8,20 @@ export const machines: IMachine[] = [
     private: {
       fileName: 'base1.刷线机',
     },
+    downloadable: {
+      txt: true,
+      glb: true,
+    },
   },
   {
     name: '养牛机',
     category: MachineCategory.BASIC,
     descriptions: ['可以在前期获得大量皮革和牛肉'],
     private: {
-      fileName: 'base2.简易皮革机',
+      fileName: 'base2.养牛机',
+    },
+    downloadable: {
+      glb: true,
     },
   },
 ];

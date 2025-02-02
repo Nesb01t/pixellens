@@ -20,13 +20,13 @@ useRenderLoop().onLoop(({ delta }) => {
 const envLightMultiplier = computed(() => {
   switch (sceneEnv.value) {
     case SceneEnvType.STARS:
-      return 1;
-    case SceneEnvType.ROOM:
       return 0.7;
+    case SceneEnvType.ROOM:
+      return 0.5;
     case SceneEnvType.ASHEN:
-      return 0.3;
+      return 0.2;
     default:
-      return 1;
+      return 0.2;
   }
 });
 </script>

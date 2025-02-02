@@ -1,3 +1,5 @@
+import type { DownloadableStatus } from '~/components/utils-panel/index.vue';
+
 export interface IMachine {
   name: string;
   category: MachineCategory;
@@ -9,9 +11,8 @@ export interface IMachine {
   private?: {
     id?: string;
     fileName: string;
-    // glbFileName?: string;
-    // litematicFileName?: string;
   };
+  downloadable?: DownloadableStatus;
 }
 
 export interface IMaterialSet {

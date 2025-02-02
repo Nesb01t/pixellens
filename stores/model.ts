@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 import { translate, translatePatchLogger } from '~/utils/translate';
 import { loadMaterialMap } from '~/utils/material-parser';
 
-export const DEFAULT_MODEL = 'base2.简易皮革机';
+export const DEFAULT_MODEL = 'base2.养牛机';
 
 export const useModelStore = defineStore('model', () => {
   const scene = shallowRef<Scene | null>(null);
@@ -34,14 +34,19 @@ export const useModelStore = defineStore('model', () => {
       status.value = 'loaded';
     } catch {
       status.value = 'error';
+      selectScene(DEFAULT_MODEL);
     }
   };
 
   const loadScene = async () => {
     try {
-      await selectScene(modelName.value);
+      if (modelName.value) {
+        await selectScene(modelName.value);
+      } else {
+        await selectScene(DEFAULT_MODEL);
+      }
     } catch {
-      await selectScene(DEFAULT_MODEL);
+      console.error('Failed to load scene');
     }
   };
 
