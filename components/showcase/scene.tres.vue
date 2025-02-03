@@ -16,6 +16,7 @@ const themeStore = useThemeStore();
 const { sceneEnv } = storeToRefs(themeStore);
 
 const yRotation = shallowRef(0);
+
 useRenderLoop().onLoop(({ delta }) => {
   yRotation.value += 0.03 * delta;
 });

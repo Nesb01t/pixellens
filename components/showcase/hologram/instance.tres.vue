@@ -16,13 +16,15 @@ const plainColorMatProps = {
   baseMaterial: MeshBasicMaterial,
   fragmentShader: `
     void main() {
-      gl_FragColor = vec4(0.72, 0.6, 0.6, 1);
+      gl_FragColor = vec4(0.82, 0.7, 0.45, 1);
     }
     `,
 };
 
 const transparentMatProps = {
   baseMaterial: MeshBasicMaterial,
+  name: '你好',
+  userData: props.data,
   transparent: true,
   depthWrite: true,
   depthTest: true,
@@ -59,7 +61,7 @@ const transparentMatProps = {
       vec3 N = normalize(vNormal);
       vec3 V = normalize(vViewDir);
 
-      float fresnel = pow(1.0 - max(dot(N, V), 0.2), u_FresnelPower);
+      float fresnel = pow(1.0 - max(dot(N, V), 0.7), u_FresnelPower);
       float oneMinus = 1.0 - fresnel;
 
       gl_FragColor = vec4(u_FresnelColor * oneMinus, pow(oneMinus, 0.7));
@@ -69,12 +71,12 @@ const transparentMatProps = {
 </script>
 
 <template>
-  <TresMesh :render-order="5" :position="position">
-    <TresSphereGeometry :args="[0.06, 32, 32]" />
+  <TresMesh :render-order="5" :position="position" name="你好">
+    <TresSphereGeometry :args="[0.07, 32, 32]" />
     <TresShaderMaterial v-bind="transparentMatProps" />
   </TresMesh>
-  <TresMesh :position="position">
-    <TresSphereGeometry :args="[0.085, 32, 32]" />
+  <TresMesh :position="position" name="你好的描边" :user-data="data">
+    <TresSphereGeometry :args="[0.11, 32, 32]" />
     <TresShaderMaterial v-bind="plainColorMatProps" />
   </TresMesh>
 </template>
