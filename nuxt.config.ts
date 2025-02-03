@@ -24,6 +24,9 @@ export default defineNuxtConfig({
   ssr: false,
   devtools: { enabled: false },
   compatibilityDate: '2024-04-03',
+  imports: {
+    autoImport: false,
+  },
   vite: {
     assetsInclude: ['**/*.fbx', '**/*.glb'],
     css: {

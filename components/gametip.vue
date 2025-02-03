@@ -1,6 +1,8 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { useMouse } from '@vueuse/core';
+import { useGameTipStore } from '~/stores/gametip';
+import { storeToRefs } from '#build/imports';
 
 const gametipStore = useGameTipStore();
 

@@ -23,7 +23,7 @@ const machinesByCategory = groupMachinesByCategory(machines);
 
 <template>
   <div class="w-full h-full flex flex-col gap-1">
-    <div class="pb-3 flex-col flex gap-1" v-for="(category, idx) in categoryValues" :key="idx">
+    <div v-for="(category, idx) in categoryValues" :key="idx" class="pb-3 flex-col flex gap-1">
       <template v-if="machinesByCategory[category]">
         <h3
           class="text-[15px] border-l-[5px] mb-3 border-orange-400/15 ml-[1px] pl-[6px] flex items-center gap-1 text-orange-300/65"
@@ -31,7 +31,7 @@ const machinesByCategory = groupMachinesByCategory(machines);
           <Icon name="pixelarticons:book" class="text-lg" />
           {{ category }}
         </h3>
-        <AchievementCard v-for="(m, idx) in machinesByCategory[category]" :key="idx" :machine="m" />
+        <AchievementCard v-for="(m, i) in machinesByCategory[category]" :key="i" :machine="m" />
       </template>
     </div>
   </div>

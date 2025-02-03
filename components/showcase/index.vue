@@ -1,6 +1,9 @@
 <script setup lang="ts">
+import { storeToRefs } from '#build/imports';
+import { computed } from 'vue';
 import Drawer from '~/components/drawer/index.vue';
 import Scene from '~/components/showcase/scene.tres.vue';
+import { useModelStore } from '~/stores/model';
 
 const modelStore = useModelStore();
 
@@ -27,6 +30,6 @@ const loadingOpacityClass = computed(() =>
 
     <Scene />
     <Drawer />
-    <ShowcaseHelper />
+    <Helper />
   </div>
 </template>

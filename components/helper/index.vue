@@ -2,7 +2,7 @@
 
 <template>
   <div class="absolute right-3 top-3 gap-2 flex flex-col">
-    <ShowcaseHelperGroup title="显示操作按键">
+    <HelperGroup title="显示操作按键">
       <ul class="helper-list">
         <li>
           <Icon name="pixelarticons:zoom-in" />
@@ -19,9 +19,9 @@
           <span>旋转：按住左键拖动</span>
         </li>
       </ul>
-    </ShowcaseHelperGroup>
+    </HelperGroup>
 
-    <ShowcaseHelperGroup title="调试信息">
+    <HelperGroup title="调试信息">
       <ul class="helper-list">
         <li>
           <Icon name="pixelarticons:next" />
@@ -38,7 +38,7 @@
           <span>3. blender 执行 remesh 并导出 (2)[gltf]</span>
         </li>
       </ul>
-    </ShowcaseHelperGroup>
+    </HelperGroup>
   </div>
 </template>
 

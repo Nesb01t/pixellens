@@ -2,6 +2,8 @@
 import { machines } from '~/assets/data/machines';
 import type { IMaterialSet } from '~/types/machine';
 import { downloadLitematic, downloadTxt, downloadGlb } from './utils';
+import { useModelStore, storeToRefs } from '#build/imports';
+import { computed } from 'vue';
 
 const modelStore = useModelStore();
 

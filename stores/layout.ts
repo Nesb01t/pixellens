@@ -1,4 +1,6 @@
+import { defineStore } from '#build/imports';
 import { useWindowSize } from '@vueuse/core';
+import { ref, computed } from 'vue';
 
 export type SidebarStatus = boolean | 'auto';
 export type DrawerStatus = 'closed' | 'settings' | 'machine' | 'utils';

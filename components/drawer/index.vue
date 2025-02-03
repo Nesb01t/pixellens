@@ -2,6 +2,8 @@
 import manager from '../litematic/manager.vue';
 import utilsPanel from '../utils-panel/index.vue';
 import setting from '../setting/index.vue';
+import { useLayoutStore, type DrawerStatus } from '~/stores/layout';
+import { ref, watch, computed } from 'vue';
 
 const layoutStore = useLayoutStore();
 const bufferedDrawerStatus = ref<DrawerStatus>('closed');

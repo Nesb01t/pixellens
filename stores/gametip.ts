@@ -1,3 +1,5 @@
+import { defineStore } from '#build/imports';
+import { ref } from 'vue';
 import type { IMachine } from '~/types/machine';
 
 export const useGameTipStore = defineStore('gametip', () => {

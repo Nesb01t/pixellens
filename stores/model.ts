@@ -1,14 +1,20 @@
 import type { Scene } from 'three';
-import type { ModelName } from '~/composables/model-bridge';
+import { useModelBridge, type ModelName } from '~/composables/model-bridge';
 import dayjs from 'dayjs';
 import { translate, translatePatchLogger } from '~/utils/translate';
 import { loadMaterialMap } from '~/utils/material-parser';
+import type { IMachine } from '~/types/machine';
+import { machines } from '~/assets/data/machines';
+import { defineStore } from '#build/imports';
+import { useSeek } from '@tresjs/core';
+import { shallowRef, ref } from 'vue';
 
 export const DEFAULT_MODEL = 'base2.养牛机';
 
 export const useModelStore = defineStore('model', () => {
   const scene = shallowRef<Scene | null>(null);
   const modelName = ref<ModelName | null>(localStorage.getItem('modelName') || null);
+  const machine = ref<IMachine | null>(null);
   const lastScene = shallowRef<Scene | null>(null);
   const lastToggleTime = ref(dayjs());
   const status = ref<'loading' | 'loaded' | 'transmoging' | 'error'>('loaded');
@@ -19,6 +25,9 @@ export const useModelStore = defineStore('model', () => {
     }
     modelName.value = newModelName;
     localStorage.setItem('modelName', newModelName as string);
+
+    machine.value = machines.find((machine) => machine.private?.fileName === newModelName) || null;
+
     try {
       status.value = 'loading';
       lastScene.value = scene.value ? scene.value.clone() : null;
@@ -34,7 +43,7 @@ export const useModelStore = defineStore('model', () => {
       status.value = 'loaded';
     } catch {
       status.value = 'error';
-      selectScene(DEFAULT_MODEL);
+      // selectScene(DEFAULT_MODEL);
     }
   };
 
@@ -111,6 +120,7 @@ export const useModelStore = defineStore('model', () => {
 
   return {
     scene,
+    machine,
     lastScene,
     modelName,
     status,

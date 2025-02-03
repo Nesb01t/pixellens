@@ -12,6 +12,12 @@ export const machines: IMachine[] = [
       txt: true,
       glb: true,
     },
+    tips: [
+      {
+        content: '这里是刷线机',
+        position: { x: -2, y: -2, z: -2 },
+      },
+    ],
   },
   {
     name: '养牛机',

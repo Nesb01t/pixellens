@@ -1,4 +1,5 @@
-import type { Object3D, Scene } from 'three';
+import { useGLTF } from '@tresjs/cientos';
+import { CustomBlending, OneFactor, ZeroFactor, type Object3D, type Scene } from 'three';
 
 export type ModelName = string;
 
@@ -7,49 +8,50 @@ export interface MachineObj extends Object3D {
   geometry?: any;
 }
 
+const TRANSPARENT_MATERIALS = ['glass', 'trapdoor'];
+
 export const useModelBridge = () => {
   const getParsedModel = async (modelName: ModelName): Promise<Scene> => {
     const glbResults = await useGLTF(`/models/${modelName}.glb`);
     const glbScene = Array.isArray(glbResults) ? glbResults[0].scene : glbResults.scene;
 
     /**
-     * generic fix
+     * 通用
      */
     glbScene.traverse((child: any) => {
       const material = (child as any).material;
 
-      // depth fix
       if (material) {
         material.depthWrite = true;
         material.depthTest = true;
       }
 
-      // shadow
       child.receiveShadow = true;
       child.castShadow = true;
     });
 
     /**
-     * waterish material applied
+     * 透明材质支持
      */
     glbScene.traverse((child: any) => {
       const name: string = child.name;
 
+      // 修复 top 和 around 水体
       if (name.includes('water_still')) {
         const top = child.children[0];
         const around = child.children[1];
-
         fixTopWater(top);
         fixAroundWater(around);
       }
 
-      if (name.includes('glass')) {
-        fixGlass(child);
+      // 通用修复
+      if (TRANSPARENT_MATERIALS.some((material) => name.includes(material))) {
+        fixCommonTransparent(child);
       }
     });
 
     /**
-     * global scaling
+     * 整体缩放
      */
     glbScene.scale.set(0.4, 0.4, 0.4);
     return glbScene;
@@ -63,19 +65,21 @@ export const useModelBridge = () => {
 const fixAroundWater = (obj: MachineObj) => {
   patchTransparent(obj);
 
-  obj.material.opacity = 0.65;
+  obj.renderOrder = 3;
+  obj.material.opacity = 0.7;
 };
 
 const fixTopWater = (obj: MachineObj) => {
   patchTransparent(obj);
 
-  obj.material.opacity = 0.85;
+  obj.renderOrder = 3;
+  obj.material.opacity = 0.7;
 };
 
-const fixGlass = (obj: MachineObj) => {
+const fixCommonTransparent = (obj: MachineObj) => {
   patchTransparent(obj);
 
-  obj.material.opacity = 0.8;
+  obj.material.opacity = 0.95;
 };
 
 const patchTransparent = (obj: MachineObj) => {
@@ -84,7 +88,7 @@ const patchTransparent = (obj: MachineObj) => {
     return;
   }
 
-  obj.renderOrder = 1;
+  obj.renderOrder = 2;
   material.transparent = true;
   material.depthWrite = false;
   material.depthTest = true;
@@ -94,5 +98,4 @@ const patchTransparent = (obj: MachineObj) => {
   material.polygonOffsetUnits = 1;
 
   obj.castShadow = false;
-  obj.receiveShadow = true;
 };

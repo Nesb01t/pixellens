@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useGameTipStore, useLayoutStore, useModelStore } from '#build/imports';
+import { unref } from 'vue';
 import type { IMachine } from '~/types/machine';
 
 const props = defineProps<{
@@ -11,7 +13,6 @@ const modelStore = useModelStore();
 
 const enter = () => {
   gametipStore.setGameTipContent(unref(props.machine));
-
   gametipStore.setVisible(true);
 };
 

@@ -1,12 +1,15 @@
 <script setup lang="ts">
-import { OrbitControls } from '@tresjs/cientos';
-import { TresCanvas } from '@tresjs/core';
+import Renderer from './renderer.tres.vue';
+import { TresCanvas, useRenderLoop } from '@tresjs/core';
 import Machine from '~/components/showcase/machine.tres.vue';
-import { useThemeStore } from '~/stores/theme';
+import { SceneEnvType, useThemeStore } from '~/stores/theme';
 import StarEnv from '~/components/showcase/env/star-env.tres.vue';
 import RoomEnv from '~/components/showcase/env/room-env.tres.vue';
 import AshenEnv from '~/components/showcase/env/ashen-env.tres.vue';
 import VanillaEnv from '~/components/showcase/env/vanilla-env.tres.vue';
+import HologramTips from '~/components/showcase/hologram/tips.tres.vue';
+import { storeToRefs } from '#build/imports';
+import { shallowRef, computed } from 'vue';
 
 const themeStore = useThemeStore();
 
@@ -32,13 +35,14 @@ const envLightMultiplier = computed(() => {
 </script>
 
 <template>
-  <TresCanvas clear-color="#1a1a1a" preset="realistic">
-    <TresPerspectiveCamera :position="[3, 3, 3]" />
-    <OrbitControls make-default />
-    <TresGridHelper :size="10" :divisions="10" material-color="#D3BBA1" />
+  <TresCanvas antialias render-mode="manual" clear-color="#1a1a1a" preset="realistic">
+    <Suspense>
+      <Renderer />
+    </Suspense>
 
     <!-- items -->
     <Machine />
+    <HologramTips />
     <Stars
       v-if="sceneEnv === SceneEnvType.STARS"
       :rotation="[0, yRotation, 0]"
@@ -49,6 +53,7 @@ const envLightMultiplier = computed(() => {
       :size-attenuation="true"
     />
 
+    <!-- light set -->
     <TresAmbientLight :intensity="envLightMultiplier * 0.4" />
     <TresDirectionalLight
       :shadow-bias="-0.00005"

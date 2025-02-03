@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { useModelStore, storeToRefs } from '#build/imports';
+import { onMounted } from 'vue';
+
 const modelStore = useModelStore();
 const { scene, lastScene } = storeToRefs(modelStore);
 

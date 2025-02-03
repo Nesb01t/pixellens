@@ -1,5 +1,7 @@
 <script setup lang="ts">
+import { useLayoutStore } from '~/stores/layout';
 import Pattern from './pattern.vue';
+import { computed } from 'vue';
 
 const layoutStore = useLayoutStore();
 

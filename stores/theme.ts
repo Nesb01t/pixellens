@@ -1,3 +1,6 @@
+import { defineStore } from '#build/imports';
+import { ref } from 'vue';
+
 export enum SceneEnvType {
   STARS,
   ROOM,

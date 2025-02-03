@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { SceneEnvType, storeToRefs, useThemeStore } from '#build/imports';
+
 const envList = [
   {
     name: '无暇星空',

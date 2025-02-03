@@ -1,3 +1,4 @@
+import type { Vector3Like } from 'three';
 import type { DownloadableStatus } from '~/components/utils-panel/index.vue';
 
 export interface IMachine {
@@ -13,6 +14,8 @@ export interface IMachine {
     fileName: string;
   };
   downloadable?: DownloadableStatus;
+
+  tips?: IHologramTip[];
 }
 
 export interface IMaterialSet {
@@ -27,4 +30,9 @@ export enum MachineCategory {
   PASTURE = '牧业',
   ROCK = '石材',
   WOOD = '木材',
+}
+
+export interface IHologramTip {
+  content: string;
+  position: Vector3Like;
 }

@@ -1,3 +1,5 @@
+import { translateMap } from './translate-mapping';
+
 export const translate = (rawName: string) => {
   return translateMap?.[rawName] || rawName;
 };
