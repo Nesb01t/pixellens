@@ -6,10 +6,10 @@ import { storeToRefs } from '#build/imports';
 
 const gametipStore = useGameTipStore();
 
-const { gametipContent } = storeToRefs(gametipStore);
+const { gametipContent, raycastContent } = storeToRefs(gametipStore);
 
 const opacityClass = computed(() => {
-  return gametipStore.visible ? 'opacity-100' : 'opacity-0';
+  return gametipStore.visible || raycastContent.value !== undefined ? 'opacity-100' : 'opacity-0';
 });
 
 const textOpacityTransClass = ref('opacity-0');
@@ -30,13 +30,17 @@ const position = computed(() => {
 });
 
 const transXClass = computed(() => {
-  return gametipStore.visible ? 'left-0' : 'left-[30px]';
+  return gametipStore.visible || raycastContent.value !== undefined ? 'left-0' : 'left-[30px]';
 });
 </script>
 
 <template>
   <div class="gametip-wrapper">
-    <div class="gametip-content" :class="[transXClass, opacityClass].join(' ')">
+    <div
+      v-if="gametipStore.visible"
+      class="gametip-content min-w-[200px] min-h-[120px]"
+      :class="[transXClass, opacityClass].join(' ')"
+    >
       <header class="flex items-end gap-1">
         <h1 class="text-base text-neutral-300" :class="textOpacityTransClass">{{ gametipContent?.name }}</h1>
         <h2 class="text-sm text-neutral-500" :class="textOpacityTransClass">{{ gametipContent?.category }}</h2>
@@ -52,6 +56,18 @@ const transXClass = computed(() => {
         点击选择机器并查看详情
       </div>
     </div>
+
+    <div
+      v-else-if="raycastContent !== undefined"
+      class="gametip-content min-w-[230px] min-h-[50px] py-2 text-center items-center justify-center"
+      :class="[transXClass, opacityClass].join(' ')"
+    >
+      <Icon name="pixelarticons:script-text" class="text-lg text-orange-100 mb-1" />
+      <span
+        class="text-xs bg-clip-text text-transparent bg-gradient-to-br from-slate-200/70 to-orange-200/70"
+        v-html="raycastContent"
+      />
+    </div>
   </div>
 </template>
 
@@ -63,6 +79,6 @@ const transXClass = computed(() => {
 }
 
 .gametip-content {
-  @apply absolute flex flex-col px-3 py-2 text-white/50 text-sm transition-all duration-300 min-w-[200px] min-h-[120px] border border-neutral-400/30 backdrop-blur-sm bg-black/50;
+  @apply absolute flex flex-col px-3 py-2 text-white/50 text-sm transition-all duration-300 border border-neutral-400/30 backdrop-blur-sm bg-black/50;
 }
 </style>

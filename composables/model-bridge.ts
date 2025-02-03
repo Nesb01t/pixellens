@@ -1,5 +1,5 @@
 import { useGLTF } from '@tresjs/cientos';
-import { CustomBlending, OneFactor, ZeroFactor, type Object3D, type Scene } from 'three';
+import type { Object3D, Scene } from 'three';
 
 export type ModelName = string;
 
