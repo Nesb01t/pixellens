@@ -43,7 +43,9 @@ const envLightMultiplier = computed(() => {
 
     <!-- items -->
     <Machine />
-    <HologramTips />
+    <Suspense>
+      <HologramTips />
+    </Suspense>
     <Stars
       v-if="sceneEnv === SceneEnvType.STARS"
       :rotation="[0, yRotation, 0]"
@@ -55,7 +57,6 @@ const envLightMultiplier = computed(() => {
     />
 
     <!-- light set -->
-    <TresAmbientLight :intensity="envLightMultiplier * 0.4" />
     <TresDirectionalLight
       :shadow-bias="-0.00005"
       :shadow-mapSize-width="1024"
@@ -73,6 +74,7 @@ const envLightMultiplier = computed(() => {
       :position="[1, 1, -0.5]"
       :intensity="0.7 * envLightMultiplier"
     />
+    <TresAmbientLight v-if="sceneEnv === SceneEnvType.STARS" :intensity="0.25" />
 
     <!-- env -->
     <StarEnv v-if="sceneEnv === SceneEnvType.STARS" />

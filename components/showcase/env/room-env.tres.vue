@@ -8,7 +8,7 @@ import { SRGBColorSpace } from 'three';
     <Environment
       background
       :encoding="SRGBColorSpace"
-      :far="23"
+      :far="120"
       :files="[
         '/textures/room-env/nx.png',
         '/textures/room-env/ny.png',

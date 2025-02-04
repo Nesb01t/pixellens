@@ -35,5 +35,15 @@ export const machines: IMachine[] = [
     downloadable: {
       glb: true,
     },
+    tips: [
+      {
+        content: '简易的手动动物收集 / 繁育机器<br>除了牛也可以养其他动物',
+        position: { x: -0.1, y: 0.7, z: 0.2 },
+      },
+      {
+        content: '1. 利用船 (2格宽) 和水流 (主要用来推动动物) 挤到这里<br>2. 可以剪羊毛 / 单体武器砍牛 / 鸡蛋',
+        position: { x: 0.57, y: 1.6, z: 0.2 },
+      },
+    ],
   },
 ];

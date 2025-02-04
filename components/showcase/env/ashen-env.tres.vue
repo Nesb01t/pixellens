@@ -8,7 +8,7 @@ import { SRGBColorSpace } from 'three';
     <Environment
       background
       :encoding="SRGBColorSpace"
-      :far="23"
+      :far="120"
       :files="[
         '/textures/ashen-env/panorama_1.png',
         '/textures/ashen-env/panorama_3.png',

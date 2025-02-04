@@ -14,6 +14,7 @@ import type { IHologramTip } from '~/types/machine';
 
 const props = defineProps<{
   data: IHologramTip;
+  disposeDirective: boolean;
 }>();
 
 const position = computed<Vector3>(() => {
@@ -38,9 +39,9 @@ const plainColorMatProps = {
     uniform float u_Time;
     uniform vec3 u_Color;
     void main() {
-      float r = (sin(u_Time * 2.0) * 0.2 + 0.5) * u_Color.r;
-      float g = (cos(u_Time * 2.0) * 0.2 + 0.5) * u_Color.g;
-      float b = (sin(u_Time * 3.0) * 0.2 + 0.5) * u_Color.b;
+      float r = (sin(u_Time * 2.0) * 0.3 + 0.5) * u_Color.r;
+      float g = (cos(u_Time * 2.0) * 0.3 + 0.5) * u_Color.g;
+      float b = (sin(u_Time * 3.0) * 0.3 + 0.5) * u_Color.b;
       float rand = fract(sin(dot(gl_FragCoord.xy, vec2(12.9898, 78.233))) * 43758.5453);
       vec3 color = vec3(r, g, b) * rand;
       gl_FragColor = vec4(color, 1.0);
@@ -59,7 +60,7 @@ const transparentMatProps = {
   blendSrc: OneMinusDstColorFactor,
   blendDst: OneFactor,
   uniforms: {
-    u_Time: { value: 0 },
+    u_Time: { value: Math.random() * 100 },
     u_FresnelPower: { value: 1.2 },
     u_FresnelColor: { value: new Color(0.92, 0.9, 0.9) },
   },
@@ -104,11 +105,11 @@ useRenderLoop().onLoop(({ delta }) => {
 </script>
 
 <template>
-  <TresMesh :render-order="5" :position="position">
+  <TresMesh v-if="disposeDirective" name="TipsCore" :render-order="5" :position="position">
     <TresIcosahedronGeometry :args="[0.065, 0]" />
     <TresShaderMaterial v-bind="transparentMatProps" />
   </TresMesh>
-  <TresMesh :position="position" name="Tips" :user-data="data">
+  <TresMesh v-if="disposeDirective" :position="position" name="Tips" :user-data="data">
     <TresIcosahedronGeometry :args="[0.1, 0]" />
     <TresShaderMaterial v-bind="plainColorMatProps" />
   </TresMesh>
